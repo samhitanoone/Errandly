@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+
+    <title>Firebase Database Example Read/Write</title>
+    <link rel="stylesheet" href="css/addTask.css" />
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+    <script defer src="js/addTask.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Firebase Database Example Read/Write</h2>
+      <h3>Post a Task!</h3>
+      <form>
+        <div class="form-group col-md-3">
+          <label for="formControlUsername">Username</label>
+          <input type="text" class="form-control" id="formControlUsername" />
+        </div>
+        <div class="form-group col-md-3">
+            <label for="formControlCity">City</label>
+            <input type="text" class="form-control" id="formControlCity" />
+          </div>
+        <div class="form-group col-md-3">
+              <label class="mr-sm-2" for="formControlDropdownTask ">Task</label>
+              <select class="custom-select mr-sm-2" id="formControlDropdownTask">
+                <option selected>Choose...</option>
+                <option value="washDishes">Wash the Dishes</option>
+                <option value="mowLawn">Mow the Lawn</option>
+                <option value="walkDog">Walk the Dog</option>
+              </select>
+            </div>
+            <div class="form-group col-md-3">
+            <label for="formControlDate">Date / Time:</label>
+            <input type="datetime-local" id="formControlDate" name="trip-start"
+            value="2019-09-22"
+            min="2019-01-01" max="2019-12-31">
+          </div>
+        <div class="form-group col-md-12">
+          <label for="formControlTextareaTask">Task Description</label>
+          <textarea class="form-control" id="formControlTextareaTask" rows="5"></textarea>
+        </div>
+        <button type="submit" class="btn btn-dark" id="submit-button">
+          Submit
+        </button>
+      </form>
+      <div id="output"></div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+  </body>
+</html>
