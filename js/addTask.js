@@ -27,7 +27,9 @@ submitBtn.addEventListener("click", function(e) {
       city: formControlCity.value,
       task: formControlTask.value,
       taskDate: formControlDate.value,
-      taskDescription: formControlTextareaTaskDescription.value
+      taskDescription: formControlTextareaTaskDescription.value,
+      acceptedUsername: "NA",
+      accepted: false
     })
     .then(function(docRef) {
       console.log(`Document written with ID: ${docRef.id}`);
