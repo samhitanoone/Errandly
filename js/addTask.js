@@ -18,6 +18,7 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+// Note: acceptedUsername and accepted are fixed values when first adding to DB
 submitBtn.addEventListener("click", function(e) {
   e.preventDefault();
   const db = firebase.firestore();
@@ -39,7 +40,7 @@ submitBtn.addEventListener("click", function(e) {
     });
 });
 
-// Example on displaying all records in DB
+// Execute each example type once HTML documnt loads
 
 document.addEventListener("DOMContentLoaded", event => {
   displayAllDBRecords();
