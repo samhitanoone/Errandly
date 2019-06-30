@@ -24,6 +24,7 @@ function renderFunction(querySnapshot) {
     renderHTML += `
     <li class="list-group-item"><strong>Document ID:</strong>: ${doc.id}</li>
     <li class="list-group-item"><strong>Username:</strong>: ${recordDetails.username}</li>
+    <li class="list-group-item"><strong>Address:</strong>: ${recordDetails.address}</li>
     <li class="list-group-item"><strong>City:</strong>: ${recordDetails.city}</li>
     <li class="list-group-item"><strong>Task:</strong>: ${recordDetails.task}</li>
     <li class="list-group-item"><strong>Task Date:</strong>: ${recordDetails.taskDate}</li>
@@ -39,7 +40,7 @@ function displayAllDBRecords() {
   db.collection("DigitalCrafts")
     .get()
     .then(function(querySnapshot) {
-      console.log("Display all Records!");
+      console.log("Displaying all Records!");
       renderFunction(querySnapshot);
     });
 }

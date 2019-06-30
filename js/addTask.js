@@ -1,5 +1,6 @@
 const submitBtn = document.getElementById("submit-button");
 const formControlUsername = document.getElementById("formControlUsername");
+const formControlAddress = document.getElementById("formControlAddress");
 const formControlCity = document.getElementById("formControlCity");
 const formControlTask = document.getElementById("formControlDropdownTask");
 const formControlDate = document.getElementById("formControlDate");
@@ -25,6 +26,7 @@ submitBtn.addEventListener("click", function(e) {
   db.collection("DigitalCrafts")
     .add({
       username: formControlUsername.value,
+      address: formControlAddress.value,
       city: formControlCity.value,
       task: formControlTask.value,
       taskDate: formControlDate.value,
@@ -44,8 +46,8 @@ submitBtn.addEventListener("click", function(e) {
 
 document.addEventListener("DOMContentLoaded", event => {
   displayAllDBRecords();
-  displayFilteredDBRecords("washDishes");
-  updateSpecificRecord("X7iIXeEjIQhVF8BYaqwM");
+  displayFilteredDBRecords("mowLawn");
+  updateSpecificRecord("uGnJJL9SziF3zfcDv2ru");
 });
 
 // Example on displaying all records in DB from Cloud Firestore
@@ -76,9 +78,9 @@ function displayFilteredDBRecords(filterTask) {
     .where("task", "==", filterTask)
     .get()
     .then(function(querySnapshot) {
+      console.log("Display Filtered Records");
       querySnapshot.forEach(function(doc) {
         // doc.data() is never undefined for query doc snapshots
-        console.log("Display Filtered Records");
         console.log(doc.id, " => ", doc.data());
       });
     })
