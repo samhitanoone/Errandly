@@ -48,7 +48,6 @@ submitBtn.addEventListener("click", function(e) {
 });
 
 // Function to derive the Geolocation coordinates from the address, for storage in the database
-
 function geocode(address, city) {
   console.log(address, city);
   let normalizedAddress = address.split(" ").join("+") + "+" + city + "+Georgia";
