@@ -22,25 +22,44 @@ firebase.initializeApp(firebaseConfig);
 // Note: acceptedUsername and accepted are fixed values when first adding to DB
 submitBtn.addEventListener("click", function(e) {
   e.preventDefault();
-  const db = firebase.firestore();
-  db.collection("DigitalCrafts")
-    .add({
-      username: formControlUsername.value,
-      address: formControlAddress.value,
-      city: formControlCity.value,
-      task: formControlTask.value,
-      taskDate: formControlDate.value,
-      taskDescription: formControlTextareaTaskDescription.value,
-      acceptedUsername: "NA",
-      accepted: false
-    })
-    .then(function(docRef) {
-      console.log(`Document written with ID: ${docRef.id}`);
-    })
-    .catch(function(error) {
-      console.error(`Error adding document: ${error}`);
-    });
+  geocode(formControlAddress.value, formControlCity.value).then(response => {
+    const db = firebase.firestore();
+    db.collection("DigitalCrafts")
+      .add({
+        username: formControlUsername.value,
+        address: formControlAddress.value,
+        city: formControlCity.value,
+        lat: response.data.results[0].geometry.location.lat,
+        lng: response.data.results[0].geometry.location.lng,
+        task: formControlTask.value,
+        taskDate: formControlDate.value,
+        taskDescription: formControlTextareaTaskDescription.value,
+        acceptedUsername: "NA",
+        accepted: false
+      })
+      .then(function(docRef) {
+        console.log(`Document written with ID: ${docRef.id}`);
+        // console.log(`GPS Coordinates`, geocode(formControlAddress.value, formControlCity.value));
+      })
+      .catch(function(error) {
+        console.error(`Error adding document: ${error}`);
+      });
+  });
 });
+
+// Function to derive the Geolocation coordinates from the address, for storage in the database
+
+function geocode(address, city) {
+  console.log(address, city);
+  let normalizedAddress = address.split(" ").join("+") + "+" + city + "+Georgia";
+  console.log(normalizedAddress);
+  return axios.get("https://maps.googleapis.com/maps/api/geocode/json", {
+    params: {
+      address: normalizedAddress,
+      key: "AIzaSyDz4JxgFZ28TtTLW6wTzTssSMv5lqARKyQ"
+    }
+  });
+}
 
 // Execute each example type once HTML documnt loads
 
