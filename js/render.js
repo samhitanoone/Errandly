@@ -25,6 +25,8 @@ function renderFunction(querySnapshot) {
     <li class="list-group-item"><strong>Document ID:</strong>: ${doc.id}</li>
     <li class="list-group-item"><strong>Username:</strong>: ${recordDetails.username}</li>
     <li class="list-group-item"><strong>Address:</strong>: ${recordDetails.address}</li>
+    <li class="list-group-item"><strong>Latitude:</strong>: ${recordDetails.lat}</li>
+    <li class="list-group-item"><strong>Longitude:</strong>: ${recordDetails.lng}</li>
     <li class="list-group-item"><strong>City:</strong>: ${recordDetails.city}</li>
     <li class="list-group-item"><strong>Task:</strong>: ${recordDetails.task}</li>
     <li class="list-group-item"><strong>Task Date:</strong>: ${recordDetails.taskDate}</li>
