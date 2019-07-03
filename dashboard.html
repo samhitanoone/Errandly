@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         #map {
             height: 400px;
@@ -15,11 +17,25 @@
 </head>
 <body>
     <div id='map'></div>
+    <div id="formatted-address"></div>
+
+    <form id="addressform">
+        Address<br>
+        <input id= 'location' type="text" name="address" value="">
+        <br>
+
+        <br><br>
+        <!-- <input type="submit" value="Submit" onclick = "handleClick()"> -->
+        <button>submit</button>
+      </form> 
     <script src = 'dashboard.js' ></script>
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXXdhfcL4wudAooa22SPESVm_PPbKRgqE&callback=initMap">
     </script>
 
+    <!-- <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBymnxB6YX3rXtc5GXONriPRZD57jqt9Ww&callback=initMap">
+    </script> -->
 </body>
 </html>
