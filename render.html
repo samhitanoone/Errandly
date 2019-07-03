@@ -19,6 +19,20 @@
   <body>
     <div class="container">
       <h1 class="text-center">Render Firebase Cloud Firestore DB</h1>
+      <form>
+        <div class="form-group col-md-4">
+          <label class="mr-sm-2" for="formControlDropdownTask">Filter Task</label>
+          <select class="custom-select mr-sm-2 form-control" id="formControlDropdownTask">
+            <option selected>Choose...</option>
+            <option value="washDishes">Wash the Dishes</option>
+            <option value="mowLawn">Mow the Lawn</option>
+            <option value="walkDog">Walk the Dog</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-dark mb-2" id="submit-button">
+          Submit
+        </button>
+      </form>
       <div id="db-output"></div>
     </div>
   </body>

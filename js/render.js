@@ -44,7 +44,33 @@ function displayAllDBRecords() {
     .then(function(querySnapshot) {
       console.log("Displaying all Records!");
       renderFunction(querySnapshot);
+    })
+    .catch(function(error) {
+      console.log(`Error getting documents ${error}`);
+    });
+}
+
+function displayFilteredDBRecords(filterTask) {
+  const db = firebase.firestore();
+  let query = db
+    .collection("DigitalCrafts")
+    .where("task", "==", filterTask)
+    .get()
+    .then(function(querySnapshot) {
+      console.log("Display Filtered Records");
+      renderFunction(querySnapshot);
+    })
+    .catch(function(error) {
+      console.log(`Error getting documents ${error}`);
     });
 }
 
 displayAllDBRecords();
+
+let formControlDropdownTask = document.getElementById("formControlDropdownTask");
+let submitButton = document.getElementById("submit-button");
+submitButton.addEventListener("click", event => {
+  event.preventDefault();
+  displayFilteredDBRecords(formControlDropdownTask.value);
+  console.log(formControlDropdownTask.value);
+});

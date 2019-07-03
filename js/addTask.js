@@ -65,7 +65,7 @@ function geocode(address, city) {
 document.addEventListener("DOMContentLoaded", event => {
   displayAllDBRecords();
   displayFilteredDBRecords("mowLawn");
-  updateSpecificRecord("uGnJJL9SziF3zfcDv2ru");
+  // updateSpecificRecord("uGnJJL9SziF3zfcDv2ru");
 });
 
 // Example on displaying all records in DB from Cloud Firestore
