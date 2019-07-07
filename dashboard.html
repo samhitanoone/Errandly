@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Errandly Find or Post a Job!</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.4/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.4/firebase-auth.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/6.2.4/firebase-firestore.js"></script>
+    <script sync defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <!-- Container for Google Map and Google Map Legend -->
+    <div class="container-fluid sticky-top">
+      <div id="map" class="border my-2 position-sticky"></div>
+      <div id="legend"><h3>Legend</h3></div>
+
+      <!-- Container for Task Filter Drop Down and Add Task Button -->
+      <div class="row justify-content-end mb-2">
+        <div class="col-4-sm">
+          <div class="dropdown">
+            <button
+              class="btn btn-dark dropdown-toggle mr-1"
+              type="button"
+              id="dropdownMenu2"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Select Task Type
+            </button>
+            <div class="dropdown-menu">
+              <button class="dropdown-item" type="button" id="allTasks">All Tasks</button>
+              <button class="dropdown-item" type="button" id="washDishes">Wash Dishes</button>
+              <button class="dropdown-item" type="button" id="mowLawn">Mow Lawn</button>
+              <button class="dropdown-item" type="button" id="walkDog">Walk Dog</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4-sm">
+          <button type="button" class="btn btn-dark mr-1" id="myTasks">My Tasks!</button>
+        </div>
+        <div class="col-4-sm">
+          <button type="button" class="btn btn-dark mr-3" data-toggle="modal" data-target="#newTask">New Task!</button>
+        </div>
+      </div>
+      <div class="container-fluid db-output mx-3"></div>
+      <!-- DIV For Database Output-->
+    </div>
+    <div class="container">
+      <div id="dbOutput"></div>
+    </div>
+
+    <!-- Modal Dialog New Task -->
+    <div class="container">
+      <div class="modal fade" id="newTask" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Add New Task</h5>
+              <button type="button" class="close" data-dismiss="modal">
+                <span>&times;</span>
+              </button>
+            </div>
+            <form>
+              <div class="modal-body">
+                <div class="form-group col-md-4">
+                  <label for="formControlUsername">Username</label>
+                  <input type="text" class="form-control" id="formControlUsername" />
+                </div>
+                <div class="form-group col-md-10">
+                  <label for="formControlAddress">Address</label>
+                  <input type="text" class="form-control" id="formControlAddress" />
+                </div>
+                <div class="form-group col-md-5">
+                  <label for="formControlCity">City</label>
+                  <input type="text" class="form-control" id="formControlCity" />
+                </div>
+                <div class="form-group col-md-5">
+                  <label class="mr-sm-2" for="formControlDropdownTask">Task</label>
+                  <select class="custom-select mr-sm-2" id="formControlDropdownTask">
+                    <option selected>Choose...</option>
+                    <option value="washDishes">Wash the Dishes</option>
+                    <option value="mowLawn">Mow the Lawn</option>
+                    <option value="walkDog">Walk the Dog</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="formControlDate">Date / Time:</label>
+                  <input
+                    type="datetime-local"
+                    id="formControlDate"
+                    name="trip-start"
+                    min="2019-01-01"
+                    max="2019-12-31"
+                  />
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="formControlTextareaTask">Task Description</label>
+                  <textarea class="form-control" id="formControlTextareaTask" rows="5"></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-dismiss="modal">Close</button>
+                <button type="button" type="submit" class="btn btn-dark" id="submitButton" data-dismiss="modal">
+                  Save changes
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/dashboard.js"></script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXXdhfcL4wudAooa22SPESVm_PPbKRgqE&callback=initMap"
+    ></script>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
