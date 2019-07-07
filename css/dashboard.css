@@ -1,0 +1,36 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background-color: #f4f3f3; /* Same background color as Google Maps */
+}
+
+#map {
+  height: 350px;
+  width: 100%;
+}
+
+#legend {
+  font-family: Arial, sans-serif;
+  background: #fff;
+  padding: 10px;
+  margin: 10px;
+  border: 3px solid #000;
+}
+#legend h3 {
+  margin-top: 0;
+}
+#legend img {
+  vertical-align: middle;
+}
+
+#dbOutput {
+  height: 400px;
+  overflow: scroll;
+  z-index: 2;
+}
