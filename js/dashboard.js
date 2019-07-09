@@ -1,7 +1,7 @@
 // Googlemap Object Instance
 var map;
 var markers = []; // keep track of markers, so we can clear them when needed!
-let placeHolderUsername = "aklein"; // Since we don't currently know the logged in user. Once we do, we will use that.
+// let placeHolderUsername = profile.displayName; // Since we don't currently know the logged in user. Once we do, we will use that.
 
 var firebaseConfig = {
   apiKey: "AIzaSyCTwkgXKLeiPztENJqsqE0dosOZMx74DkE",
@@ -12,6 +12,7 @@ var firebaseConfig = {
   messagingSenderId: "496530300183",
   appId: "1:496530300183:web:4cc570d2bdfd9293"
 };
+var placeHolderUsername;
 
 // Get handles on each of the drop down button choices
 const allTasks = document.getElementById("allTasks");
@@ -121,7 +122,7 @@ submitBtn.addEventListener("click", function(e) {
     const db = firebase.firestore();
     db.collection("DigitalCrafts")
       .add({
-        username: formControlUsername.value,
+        username: placeHolderUsername,
         address: formControlAddress.value,
         city: formControlCity.value,
         lat: response.data.results[0].geometry.location.lat,
@@ -183,7 +184,37 @@ function renderFunction(querySnapshot) {
   });
   console.log(renderHTML);
   dbOutput.innerHTML = renderHTML;
-}
+};
+
+function renderFunction_noButton(querySnapshot) {
+  let renderHTML = `<ul class="list-group">`;
+  deleteMarkers();
+  querySnapshot.forEach(function(doc) {
+    // doc.data() is never undefined for query doc snapshots
+    let recordDetails = doc.data();
+    renderHTML += `
+    <li class="list-group-item" id="${doc.id}"><strong>Document ID</strong>: ${doc.id}</li>
+    <li class="list-group-item"><strong>Username</strong>: ${recordDetails.username}</li>
+    <li class="list-group-item"><strong>City</strong>: ${recordDetails.city}</li>
+    <li class="list-group-item"><strong>Task</strong>: ${recordDetails.task}</li>
+    <li class="list-group-item"><strong>Task Date</strong>: ${recordDetails.taskDate}</li>
+    <li class="list-group-item"><strong>Task Description</strong>: ${recordDetails.taskDescription}</li>
+    <button class="btn btn-primary" id="cancelTask" onClick="cancelTask('${doc.id}')">Cancel Task!</button>
+    <br>
+  `;
+
+    let props = {
+      coords: { lat: recordDetails.lat, lng: recordDetails.lng },
+      iconImage: "./images/" + recordDetails.task + ".png",
+      content: recordDetails.taskDescription,
+      dbID: doc.id
+    };
+
+    addMarkers(props);
+  });
+  console.log(renderHTML);
+  dbOutput.innerHTML = renderHTML;
+};
 
 function addMarkers(props) {
   // props = {
@@ -269,13 +300,14 @@ function displayFilteredUnacceptedDBRecords(filterTask) {
 // Displays based on acceptedUsername
 function displayFilteredAcceptedDBRecords(filterTask) {
   const db = firebase.firestore();
+  console.log("tasks for: ", placeHolderUsername.trim());
   let query = db
     .collection("DigitalCrafts")
-    .where("acceptedUsername", "==", placeHolderUsername)
+    .where("acceptedUsername", "==", placeHolderUsername.trim())
     .get()
     .then(function(querySnapshot) {
       console.log("Display Filtered Records");
-      renderFunction(querySnapshot);
+      renderFunction_noButton(querySnapshot);
     })
     .catch(function(error) {
       console.log(`Error getting documents ${error}`);
@@ -295,6 +327,34 @@ function updateSpecificRecord(documentID) {
     })
     .then(function() {
       console.log("Document successfully updated!");
+      location.reload(forceGet = true);
+    })
+    .then(function() {
+      displayAllUnacceptedDBRecords();
+    })
+    .catch(function(error) {
+      // The document probably doesn't exist.
+      console.error("Error updating document: ", error);
+    });
+}
+
+function reopenTask(documentID) {
+  const db = firebase.firestore();
+  let fireStoreCollection = db.collection("DigitalCrafts");
+  let documentToUpdate = fireStoreCollection.doc(documentID);
+  console.log(`Updating Record ID: ${documentID}`);
+  // Update the "accepted" and "acceptedUsername" fields
+  return documentToUpdate
+    .update({
+      accepted: false,
+      acceptedUsername: "NA"
+    })
+    .then(function() {
+      console.log("Document successfully updated!");
+      location.reload(forceGet = true);
+    })
+    .then(function() {
+      displayFilteredAcceptedDBRecords();
     })
     .catch(function(error) {
       // The document probably doesn't exist.
@@ -308,6 +368,23 @@ function acceptTask(dbID) {
   displayAllUnacceptedDBRecords();
 }
 
+function cancelTask(dbID) {
+  console.log("You clicked the canceltask button!", dbID);
+  reopenTask(dbID);
+  displayFilteredAcceptedDBRecords();
+}
+
+//logout function called onclick
+function logout() {
+  //localStorage.removeItem('profile');
+  //ClearSomeLocalStorage('firebase:');
+  firebase.auth().signOut().then(function() {
+  console.log("Signout Successful")
+  }, function(error) {
+  console.log(error);
+  });
+  }
+
 // Once DOM Fully Loaded and Parsed, Run Below
 // Note Googlemaps automatically calls the initMap() when it is ready (no need to call it)
 // I had to added firebase initilization below, otherwise getting errors
@@ -315,5 +392,30 @@ window.addEventListener("DOMContentLoaded", event => {
   console.log("DOM fully loaded and parsed");
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+
+  //looks for any change in authentication state
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        console.log("signed in")    
+        var user = firebase.auth().currentUser;
+        if (user != null) {
+          user.providerData.forEach(function (profile) {
+            placeHolderUsername = profile.displayName; 
+            console.log("Sign-in provider: " + profile.providerId);
+            console.log("  Provider-specific UID: " + profile.uid);
+            console.log("  Name: " + placeHolderUsername );
+            console.log("  Email: " + profile.email);
+            console.log("  Photo URL: " + profile.photoURL);
+          });
+        }
+    } else {
+      // No user is signed in. Then redirect them to log-in page.
+      console.log("NOT signed in")  
+      window.location.href="login.html"
+    }
+  });
+
   displayAllUnacceptedDBRecords();
+
+
 });

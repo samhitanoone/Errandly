@@ -51,6 +51,9 @@
         <div class="col-4-sm">
           <button type="button" class="btn btn-dark mr-3" data-toggle="modal" data-target="#newTask">New Task!</button>
         </div>
+        <div class="col-4-sm">
+          <button type="button" class="btn btn-dark mr-3" data-toggle="modal" onclick="logout()" data-target="#signOut">Sign Out</button>
+        </div>
       </div>
       <div class="container-fluid db-output mx-3"></div>
       <!-- DIV For Database Output-->
@@ -72,10 +75,10 @@
             </div>
             <form>
               <div class="modal-body">
-                <div class="form-group col-md-4">
+                <!-- <div class="form-group col-md-4">
                   <label for="formControlUsername">Username</label>
-                  <input type="text" class="form-control" id="formControlUsername" />
-                </div>
+                  <input type="text" class="form-control" id="formControlUsername" value="test" />
+                </div> -->
                 <div class="form-group col-md-10">
                   <label for="formControlAddress">Address</label>
                   <input type="text" class="form-control" id="formControlAddress" />
