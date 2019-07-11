@@ -13,6 +13,8 @@ var firebaseConfig = {
   appId: "1:496530300183:web:4cc570d2bdfd9293"
 };
 var placeHolderUsername;
+var placeHolderphoto;
+
 
 // Get handles on each of the drop down button choices
 const allTasks = document.getElementById("allTasks");
@@ -112,7 +114,7 @@ function initMap() {
     legend.appendChild(div);
   }
 
-  map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
+  map.controls[google.maps.ControlPosition.RIGHT_TOP].push(legend);
 }
 
 // Note: acceptedUsername and accepted are fixed values when first adding to DB
@@ -401,6 +403,7 @@ window.addEventListener("DOMContentLoaded", event => {
         if (user != null) {
           user.providerData.forEach(function (profile) {
             placeHolderUsername = profile.displayName; 
+            placeHolderphoto = profile.photoURL;
             console.log("Sign-in provider: " + profile.providerId);
             console.log("  Provider-specific UID: " + profile.uid);
             console.log("  Name: " + placeHolderUsername );
@@ -409,7 +412,7 @@ window.addEventListener("DOMContentLoaded", event => {
             
           });
           let displayName = document.getElementById("login-display-name")
-          displayName.innerHTML = renderUserName(placeHolderUsername)
+          displayName.innerHTML = renderUserName(placeHolderUsername, placeHolderphoto)
         }
     } else {
       // No user is signed in. Then redirect them to log-in page.
@@ -429,7 +432,7 @@ window.addEventListener("DOMContentLoaded", event => {
   // let displayName = document.getElementById("login-display-name")
   // displayName.innerHTML = renderUserName(placeHolderUsername)
   
-  function renderUserName (name){
-    return `<p>Hello, ${name}</p>`
+  function renderUserName (name, photo){
+    return `<img src="${photo}"> <span>Hello, ${name}</span>`
   }
   

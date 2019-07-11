@@ -11,7 +11,7 @@ body {
 }
 
 #map {
-  height: 100vh;
+  height: calc(100vh - 150px);
   display: flex;
   /* float: right; */
 }
@@ -27,21 +27,24 @@ body {
   margin-top: 0;
 }
 #legend img {
-  vertical-align: middle;
+  /* vertical-align: top; */
 }
 
 #dbOutput {
-  height: 100vh;
+  height: calc(100vh - 200px);
   overflow: scroll;
   /* z-index: 2; */
 }
 
 #login-display-name {
-  color: rgb(21, 94, 63);
+  color: rgb(242, 248, 246);
   margin: 0px;
   padding: 0px;
   float: right;
   font-size: 12px;
+  background-color: gray;
+  border-radius: 5px
+
 }
 
 .banner img{
@@ -51,7 +54,7 @@ body {
 }
 
 .banner {
-  height: 200px;
+  height: 120px;
   background-color: rgb(221, 240, 240);
   padding-left: 30px;
   padding-right: 30px;
@@ -60,7 +63,7 @@ body {
   
 }
 
-.banner-text h1 {
+.logo {
   font-style: oblique;
   font-family: fantasy;
   font-size: 25px;
@@ -69,7 +72,7 @@ body {
   display: inline-block
 }
 
-.banner-text h5 {
+.banner h5 {
   font-style: normal;
   font-family: 'Courier New', Courier, monospace;
 
