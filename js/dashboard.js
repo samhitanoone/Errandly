@@ -118,6 +118,7 @@ function initMap() {
 // Note: acceptedUsername and accepted are fixed values when first adding to DB
 submitBtn.addEventListener("click", function(e) {
   e.preventDefault();
+  if (submitBtn.checkValidity()) {
   geocode(formControlAddress.value, formControlCity.value).then(response => {
     const db = firebase.firestore();
     db.collection("DigitalCrafts")
@@ -140,7 +141,7 @@ submitBtn.addEventListener("click", function(e) {
       .catch(function(error) {
         console.error(`Error adding document: ${error}`);
       });
-  });
+  }); };
 });
 
 // Function to derive the Geolocation coordinates from the address, for storage in the database
@@ -266,6 +267,8 @@ function deleteMarkers() {
 }
 
 function displayAllUnacceptedDBRecords() {
+  const now = new Date();
+  console.log("Time is:", now);
   const db = firebase.firestore();
   let query = db
     .collection("DigitalCrafts")
@@ -307,7 +310,11 @@ function displayFilteredAcceptedDBRecords(filterTask) {
     .get()
     .then(function(querySnapshot) {
       console.log("Display Filtered Records");
-      renderFunction_noButton(querySnapshot);
+      console.log("query", querySnapshot)
+      if (querySnapshot.empty) {
+        console.log("No Accepted Tasks");
+        dbOutput.innerHTML = "You have accepted 0 tasks.";}
+      else {renderFunction_noButton(querySnapshot);}
     })
     .catch(function(error) {
       console.log(`Error getting documents ${error}`);
@@ -372,7 +379,14 @@ function cancelTask(dbID) {
   console.log("You clicked the canceltask button!", dbID);
   reopenTask(dbID);
   displayFilteredAcceptedDBRecords();
-}
+};
+
+// //clearing form function
+// $('#newTask').on('hidden.bs.modal', function () {
+//   $(this).find('form').trigger('reset');
+// })
+
+
 
 //logout function called onclick
 function logout() {
@@ -417,5 +431,7 @@ window.addEventListener("DOMContentLoaded", event => {
 
   displayAllUnacceptedDBRecords();
 
-
+  $('#newTask').on('hidden.bs.modal', function () {
+    $(this).find('form').trigger('reset');
+  })
 });
