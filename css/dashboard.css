@@ -11,10 +11,9 @@ body {
 }
 
 #map {
-  height: 350px;
-  width: 50%;
+  height: 100vh;
   display: flex;
-  float: right;
+  /* float: right; */
 }
 
 #legend {
@@ -32,9 +31,8 @@ body {
 }
 
 #dbOutput {
-  height: 400px;
+  height: 100vh;
   overflow: scroll;
-
   /* z-index: 2; */
 }
 
@@ -44,9 +42,6 @@ body {
   padding: 0px;
   float: right;
   font-size: 12px;
-
- 
-  
 }
 
 .banner img{
@@ -56,13 +51,12 @@ body {
 }
 
 .banner {
-  display: flex;
-  flex: row;
-  height: 80px;
-  flex-basis: 1;
+  height: 200px;
   background-color: rgb(221, 240, 240);
   padding-left: 30px;
   padding-right: 30px;
+  padding-bottom: 100px;
+
   
 }
 
@@ -77,16 +71,14 @@ body {
 
 .banner-text h5 {
   font-style: normal;
-  font-family: 'Courier New', Courier, monospace
+  font-family: 'Courier New', Courier, monospace;
 
 }
 
 .banner-second-line {
-  padding-right: 0px;
-  margin-right: 0px;
+  width: 200%
+
 }
 
-.carousel {
-  height: 250px;
-  width: 100%;
-}
+
+

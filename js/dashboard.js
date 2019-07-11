@@ -430,6 +430,6 @@ window.addEventListener("DOMContentLoaded", event => {
   // displayName.innerHTML = renderUserName(placeHolderUsername)
   
   function renderUserName (name){
-    return `Hello, ${name}`
+    return `<p>Hello, ${name}</p>`
   }
   
