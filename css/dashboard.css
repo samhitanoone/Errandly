@@ -11,8 +11,9 @@ body {
 }
 
 #map {
-  height: 350px;
-  width: 100%;
+  height: 100vh;
+  display: flex;
+  /* float: right; */
 }
 
 #legend {
@@ -30,7 +31,54 @@ body {
 }
 
 #dbOutput {
-  height: 400px;
+  height: 100vh;
   overflow: scroll;
-  z-index: 2;
+  /* z-index: 2; */
 }
+
+#login-display-name {
+  color: rgb(21, 94, 63);
+  margin: 0px;
+  padding: 0px;
+  float: right;
+  font-size: 12px;
+}
+
+.banner img{
+  height: 75px;
+  width: 75px;
+  
+}
+
+.banner {
+  height: 200px;
+  background-color: rgb(221, 240, 240);
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 100px;
+
+  
+}
+
+.banner-text h1 {
+  font-style: oblique;
+  font-family: fantasy;
+  font-size: 25px;
+  padding-top:25px;
+  padding-left: 0px;
+  display: inline-block
+}
+
+.banner-text h5 {
+  font-style: normal;
+  font-family: 'Courier New', Courier, monospace;
+
+}
+
+.banner-second-line {
+  width: 200%
+
+}
+
+
+
