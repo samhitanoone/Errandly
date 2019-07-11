@@ -406,7 +406,10 @@ window.addEventListener("DOMContentLoaded", event => {
             console.log("  Name: " + placeHolderUsername );
             console.log("  Email: " + profile.email);
             console.log("  Photo URL: " + profile.photoURL);
+            
           });
+          let displayName = document.getElementById("login-display-name")
+          displayName.innerHTML = renderUserName(placeHolderUsername)
         }
     } else {
       // No user is signed in. Then redirect them to log-in page.
@@ -419,3 +422,14 @@ window.addEventListener("DOMContentLoaded", event => {
 
 
 });
+
+
+  //UserName shows up on dashboard page when user is logged in.
+
+  // let displayName = document.getElementById("login-display-name")
+  // displayName.innerHTML = renderUserName(placeHolderUsername)
+  
+  function renderUserName (name){
+    return `Hello, ${name}`
+  }
+  

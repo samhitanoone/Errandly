@@ -19,13 +19,23 @@
   </head>
   <body>
     <!-- Container for Google Map and Google Map Legend -->
-    <div class="container-fluid sticky-top">
+    <div class='banner'>
+      <img src="./images/logo.png"></img>
+      <div class="banner-text">
+        <div class='banner-second-line'>
+          <h1>Errandly</h1>
+          <div id="login-display-name">hi</div>
+        </div>
+        <h5>Providing a completed todo-list and your time back too!</h5>
+      </div>
+    </div>
+    <div class="container-fluid sticky-top id=container-fluid">
       <div id="map" class="border my-2 position-sticky"></div>
       <div id="legend"><h3>Legend</h3></div>
 
       <!-- Container for Task Filter Drop Down and Add Task Button -->
-      <div class="row justify-content-end mb-2">
-        <div class="col-4-sm">
+      <div class="row justify-content-end">
+        <div class="col-3-sm">
           <div class="dropdown">
             <button
               class="btn btn-dark dropdown-toggle mr-1"
@@ -45,15 +55,17 @@
             </div>
           </div>
         </div>
-        <div class="col-4-sm">
-          <button type="button" class="btn btn-dark mr-1" id="myTasks">My Tasks!</button>
-        </div>
-        <div class="col-4-sm">
-          <button type="button" class="btn btn-dark mr-3" data-toggle="modal" data-target="#newTask">New Task!</button>
-        </div>
-        <div class="col-4-sm">
-          <button type="button" class="btn btn-dark mr-3" data-toggle="modal" onclick="logout()" data-target="#signOut">Sign Out</button>
-        </div>
+        
+          <div class="col-3-sm">
+            <button type="button" class="btn btn-dark mr-1" id="myTasks">My Tasks!</button>
+          </div>
+          <div class="col-3-sm">
+            <button type="button" class="btn btn-dark mr-3" data-toggle="modal" data-target="#newTask">New Task!</button>
+          </div>
+          <div class="col-3-sm">
+            <button type="button" class="btn btn-dark mr-3" data-toggle="modal" onclick="logout()" data-target="#signOut">Sign Out</button>
+          </div>
+    
       </div>
       <div class="container-fluid db-output mx-3"></div>
       <!-- DIV For Database Output-->

@@ -12,7 +12,9 @@ body {
 
 #map {
   height: 350px;
-  width: 100%;
+  width: 50%;
+  display: flex;
+  float: right;
 }
 
 #legend {
@@ -32,5 +34,59 @@ body {
 #dbOutput {
   height: 400px;
   overflow: scroll;
-  z-index: 2;
+
+  /* z-index: 2; */
+}
+
+#login-display-name {
+  color: rgb(21, 94, 63);
+  margin: 0px;
+  padding: 0px;
+  float: right;
+  font-size: 12px;
+
+ 
+  
+}
+
+.banner img{
+  height: 75px;
+  width: 75px;
+  
+}
+
+.banner {
+  display: flex;
+  flex: row;
+  height: 80px;
+  flex-basis: 1;
+  background-color: rgb(221, 240, 240);
+  padding-left: 30px;
+  padding-right: 30px;
+  
+}
+
+.banner-text h1 {
+  font-style: oblique;
+  font-family: fantasy;
+  font-size: 25px;
+  padding-top:25px;
+  padding-left: 0px;
+  display: inline-block
+}
+
+.banner-text h5 {
+  font-style: normal;
+  font-family: 'Courier New', Courier, monospace
+
+}
+
+.banner-second-line {
+  padding-right: 0px;
+  margin-right: 0px;
+}
+
+.carousel {
+  height: 250px;
+  width: 100%;
 }
