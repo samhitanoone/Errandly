@@ -1,6 +1,8 @@
 # Errandly
 
-One Paragraph of project description goes here
+In this app, 
+
+Do you come home from work and do the dishes, mow the lawn, walk the dog, look at all the things you need to fix, and sigh? Sign up for Errandly. Find people in your area who'll do those things for you. Post a task, wait, and soon, you'll have so much free time, you won't know what to do!
 
 ## Getting Started
 
