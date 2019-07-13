@@ -14,6 +14,7 @@ var firebaseConfig = {
 };
 var placeHolderUsername;
 var placeHolderphoto;
+var placeHolderEmail;
 
 // Get handles on each of the drop down button choices
 const allTasks = document.getElementById("allTasks");
@@ -124,6 +125,7 @@ submitBtn.addEventListener("click", function(e) {
     db.collection("DigitalCrafts")
       .add({
         username: placeHolderUsername,
+        email: placeHolderEmail,
         address: formControlAddress.value,
         city: formControlCity.value,
         lat: response.data.results[0].geometry.location.lat,
@@ -169,7 +171,7 @@ function renderFunction(querySnapshot) {
     <li class="list-group-item"><strong>Task</strong>: ${recordDetails.task}</li>
     <li class="list-group-item"><strong>Task Date</strong>: ${recordDetails.taskDate}</li>
     <li class="list-group-item"><strong>Task Description</strong>: ${recordDetails.taskDescription}</li>
-    <button class="btn btn-primary" id="acceptTask" onClick="acceptTask('${doc.id}')">Accept Task!</button>
+    <button class="btn btn-primary" id="acceptTask" value="${recordDetails.email}" onClick="acceptTask('${doc.id}', '${recordDetails.email}')">Accept Task!</button>
     <br>
   `;
 
@@ -335,7 +337,8 @@ function updateSpecificRecord(documentID) {
       // The document probably doesn't exist.
       console.error("Error updating document: ", error);
     });
-}
+};
+
 
 function reopenTask(documentID) {
   const db = firebase.firestore();
@@ -361,11 +364,32 @@ function reopenTask(documentID) {
     });
 }
 
-function acceptTask(dbID) {
+function acceptTask(dbID, acceptedEmail) {
   console.log("You clicked the accept task button!", dbID);
   updateSpecificRecord(dbID);
+  sendEmail(placeHolderUsername, acceptedEmail);
   displayAllUnacceptedDBRecords();
 }
+
+function sendEmail(placeHolderUsername, requesterEmail){
+  //const axios = require('axios');
+  const url = `https://magnolia-possum-6914.twil.io/sendErrandly?email=${requesterEmail}&acceptedUsername=${encodeURIComponent(placeHolderUsername)}`
+  console.log(url);
+  axios.get(url)
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+
+
+};
 
 function cancelTask(dbID) {
   console.log("You clicked the canceltask button!", dbID);
@@ -407,10 +431,10 @@ window.addEventListener("DOMContentLoaded", event => {
         user.providerData.forEach(function(profile) {
           placeHolderUsername = profile.displayName;
           placeHolderphoto = profile.photoURL;
+          placeHolderEmail = profile.email;
           console.log("Sign-in provider: " + profile.providerId);
           console.log("  Provider-specific UID: " + profile.uid);
           console.log("  Name: " + placeHolderUsername);
-          console.log("  Email: " + profile.email);
           console.log("  Photo URL: " + profile.photoURL);
         });
         let displayName = document.getElementById("login-display-name");
