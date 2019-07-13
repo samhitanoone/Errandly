@@ -6,7 +6,7 @@ Do you come home from work and do the dishes, mow the lawn, walk the dog, look a
 
 ## Getting Started
 
-Clone this repository and run on a local server. We used the [live server plug-in] (https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) in Visual Code.
+Clone this repository and run on a local server. We used the [live server plug-in](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) in Visual Code.
 
 ### Prerequisites
 
