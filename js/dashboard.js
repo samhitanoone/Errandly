@@ -15,7 +15,6 @@ var firebaseConfig = {
 var placeHolderUsername;
 var placeHolderphoto;
 
-
 // Get handles on each of the drop down button choices
 const allTasks = document.getElementById("allTasks");
 const washDishesBtn = document.getElementById("washDishes");
@@ -165,7 +164,6 @@ function renderFunction(querySnapshot) {
     // doc.data() is never undefined for query doc snapshots
     let recordDetails = doc.data();
     renderHTML += `
-    <li class="list-group-item" id="${doc.id}"><strong>Document ID</strong>: ${doc.id}</li>
     <li class="list-group-item"><strong>Username</strong>: ${recordDetails.username}</li>
     <li class="list-group-item"><strong>City</strong>: ${recordDetails.city}</li>
     <li class="list-group-item"><strong>Task</strong>: ${recordDetails.task}</li>
@@ -186,7 +184,7 @@ function renderFunction(querySnapshot) {
   });
   console.log(renderHTML);
   dbOutput.innerHTML = renderHTML;
-};
+}
 
 function renderFunction_noButton(querySnapshot) {
   let renderHTML = `<ul class="list-group">`;
@@ -195,7 +193,6 @@ function renderFunction_noButton(querySnapshot) {
     // doc.data() is never undefined for query doc snapshots
     let recordDetails = doc.data();
     renderHTML += `
-    <li class="list-group-item" id="${doc.id}"><strong>Document ID</strong>: ${doc.id}</li>
     <li class="list-group-item"><strong>Username</strong>: ${recordDetails.username}</li>
     <li class="list-group-item"><strong>City</strong>: ${recordDetails.city}</li>
     <li class="list-group-item"><strong>Task</strong>: ${recordDetails.task}</li>
@@ -216,7 +213,7 @@ function renderFunction_noButton(querySnapshot) {
   });
   console.log(renderHTML);
   dbOutput.innerHTML = renderHTML;
-};
+}
 
 function addMarkers(props) {
   // props = {
@@ -329,7 +326,7 @@ function updateSpecificRecord(documentID) {
     })
     .then(function() {
       console.log("Document successfully updated!");
-      location.reload(forceGet = true);
+      location.reload((forceGet = true));
     })
     .then(function() {
       displayAllUnacceptedDBRecords();
@@ -353,7 +350,7 @@ function reopenTask(documentID) {
     })
     .then(function() {
       console.log("Document successfully updated!");
-      location.reload(forceGet = true);
+      location.reload((forceGet = true));
     })
     .then(function() {
       displayFilteredAcceptedDBRecords();
@@ -380,12 +377,18 @@ function cancelTask(dbID) {
 function logout() {
   //localStorage.removeItem('profile');
   //ClearSomeLocalStorage('firebase:');
-  firebase.auth().signOut().then(function() {
-  console.log("Signout Successful")
-  }, function(error) {
-  console.log(error);
-  });
-  }
+  firebase
+    .auth()
+    .signOut()
+    .then(
+      function() {
+        console.log("Signout Successful");
+      },
+      function(error) {
+        console.log(error);
+      }
+    );
+}
 
 // Once DOM Fully Loaded and Parsed, Run Below
 // Note Googlemaps automatically calls the initMap() when it is ready (no need to call it)
@@ -398,41 +401,36 @@ window.addEventListener("DOMContentLoaded", event => {
   //looks for any change in authentication state
   firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-        console.log("signed in")    
-        var user = firebase.auth().currentUser;
-        if (user != null) {
-          user.providerData.forEach(function (profile) {
-            placeHolderUsername = profile.displayName; 
-            placeHolderphoto = profile.photoURL;
-            console.log("Sign-in provider: " + profile.providerId);
-            console.log("  Provider-specific UID: " + profile.uid);
-            console.log("  Name: " + placeHolderUsername );
-            console.log("  Email: " + profile.email);
-            console.log("  Photo URL: " + profile.photoURL);
-            
-          });
-          let displayName = document.getElementById("login-display-name")
-          displayName.innerHTML = renderUserName(placeHolderUsername, placeHolderphoto)
-        }
+      console.log("signed in");
+      var user = firebase.auth().currentUser;
+      if (user != null) {
+        user.providerData.forEach(function(profile) {
+          placeHolderUsername = profile.displayName;
+          placeHolderphoto = profile.photoURL;
+          console.log("Sign-in provider: " + profile.providerId);
+          console.log("  Provider-specific UID: " + profile.uid);
+          console.log("  Name: " + placeHolderUsername);
+          console.log("  Email: " + profile.email);
+          console.log("  Photo URL: " + profile.photoURL);
+        });
+        let displayName = document.getElementById("login-display-name");
+        displayName.innerHTML = renderUserName(placeHolderUsername, placeHolderphoto);
+      }
     } else {
       // No user is signed in. Then redirect them to log-in page.
-      console.log("NOT signed in")  
-      window.location.href="login.html"
+      console.log("NOT signed in");
+      window.location.href = "login.html";
     }
   });
 
   displayAllUnacceptedDBRecords();
-
-
 });
 
+//UserName shows up on dashboard page when user is logged in.
 
-  //UserName shows up on dashboard page when user is logged in.
+// let displayName = document.getElementById("login-display-name")
+// displayName.innerHTML = renderUserName(placeHolderUsername)
 
-  // let displayName = document.getElementById("login-display-name")
-  // displayName.innerHTML = renderUserName(placeHolderUsername)
-  
-  function renderUserName (name, photo){
-    return `<img src="${photo}"> <span>Hello, ${name}</span>`
-  }
-  
+function renderUserName(name, photo) {
+  return `<img src="${photo}"> <span>Hello, ${name}</span>`;
+}
