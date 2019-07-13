@@ -6,7 +6,7 @@ Do you come home from work and do the dishes, mow the lawn, walk the dog, look a
 
 ## Getting Started
 
-Clone this repository and run on a local server.
+Clone this repository and run on a local server. We used the [live server plug-in] (https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) in Visual Code.
 
 ### Prerequisites
 
@@ -14,9 +14,10 @@ Javascript, Code Editor
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Firebase Authentication](https://firebase.google.com/products/auth/) - The authentication method used
+* [Firebase Realtime Database](https://firebase.google.com/products/realtime-database/) - The database used
+* [Google Maps](https://developers.google.com/maps/documentation/javascript/tutorial) - API to display maps
+* [Google Geocode](https://developers.google.com/maps/documentation/geocoding/start) - API to display map pins
 
 ## Authors
 
