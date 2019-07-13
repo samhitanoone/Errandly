@@ -46,6 +46,11 @@ allTasks.addEventListener("click", e => {
   displayAllUnacceptedDBRecords();
 });
 
+// cancelTask.addEventListener("click", e => {
+//   e.preventDefault();
+//   console.log("The Cancel Task Was Clicked!");
+// });
+
 washDishesBtn.addEventListener("click", e => {
   console.log(`You Selected ${e.srcElement.id}`);
   displayFilteredUnacceptedDBRecords(e.srcElement.id);
@@ -308,7 +313,7 @@ function displayFilteredAcceptedDBRecords(filterTask) {
     .get()
     .then(function(querySnapshot) {
       console.log("Display Filtered Records");
-      renderFunction_noButton(querySnapshot);
+      renderFunction_noButton(querySnapshot)
     })
     .catch(function(error) {
       console.log(`Error getting documents ${error}`);
@@ -328,7 +333,6 @@ function updateSpecificRecord(documentID) {
     })
     .then(function() {
       console.log("Document successfully updated!");
-      location.reload((forceGet = true));
     })
     .then(function() {
       displayAllUnacceptedDBRecords();
@@ -353,7 +357,6 @@ function reopenTask(documentID) {
     })
     .then(function() {
       console.log("Document successfully updated!");
-      location.reload((forceGet = true));
     })
     .then(function() {
       displayFilteredAcceptedDBRecords();
