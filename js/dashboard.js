@@ -176,7 +176,9 @@ function renderFunction(querySnapshot) {
     <li class="list-group-item"><strong>Task</strong>: ${recordDetails.task}</li>
     <li class="list-group-item"><strong>Task Date</strong>: ${recordDetails.taskDate}</li>
     <li class="list-group-item"><strong>Task Description</strong>: ${recordDetails.taskDescription}</li>
-    <button class="btn btn-primary" id="acceptTask" value="${recordDetails.email}" onClick="acceptTask('${doc.id}', '${recordDetails.email}')">Accept Task!</button>
+    <button class="btn btn-primary" id="acceptTask" value="${recordDetails.email}" onClick="acceptTask('${doc.id}', '${
+      recordDetails.email
+    }')">Accept Task!</button>
     <br>
   `;
 
@@ -313,7 +315,7 @@ function displayFilteredAcceptedDBRecords(filterTask) {
     .get()
     .then(function(querySnapshot) {
       console.log("Display Filtered Records");
-      renderFunction_noButton(querySnapshot)
+      renderFunction_noButton(querySnapshot);
     })
     .catch(function(error) {
       console.log(`Error getting documents ${error}`);
@@ -341,8 +343,7 @@ function updateSpecificRecord(documentID) {
       // The document probably doesn't exist.
       console.error("Error updating document: ", error);
     });
-};
-
+}
 
 function reopenTask(documentID) {
   const db = firebase.firestore();
@@ -374,25 +375,26 @@ function acceptTask(dbID, acceptedEmail) {
   displayAllUnacceptedDBRecords();
 }
 
-function sendEmail(placeHolderUsername, requesterEmail){
+function sendEmail(placeHolderUsername, requesterEmail) {
   //const axios = require('axios');
-  const url = `https://magnolia-possum-6914.twil.io/sendErrandly?email=${requesterEmail}&acceptedUsername=${encodeURIComponent(placeHolderUsername)}`
+  const url = `https://magnolia-possum-6914.twil.io/sendErrandly?email=${requesterEmail}&acceptedUsername=${encodeURIComponent(
+    placeHolderUsername
+  )}`;
   console.log(url);
-  axios.get(url)
-  .then(function (response) {
-    // handle success
-    console.log(response);
-  })
-  .catch(function (error) {
-    // handle error
-    console.log(error);
-  })
-  .finally(function () {
-    // always executed
-  });
-
-
-};
+  axios
+    .get(url)
+    .then(function(response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function(error) {
+      // handle error
+      console.log(error);
+    })
+    .finally(function() {
+      // always executed
+    });
+}
 
 function cancelTask(dbID) {
   console.log("You clicked the canceltask button!", dbID);
@@ -459,5 +461,5 @@ window.addEventListener("DOMContentLoaded", event => {
 // displayName.innerHTML = renderUserName(placeHolderUsername)
 
 function renderUserName(name, photo) {
-  return `<img src="${photo}"> <span>Hello, ${name}</span>`;
+  return `<img src="${photo}"> <span style="padding: 10px;">Hello, ${name}</span>`;
 }

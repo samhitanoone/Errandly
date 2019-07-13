@@ -39,18 +39,16 @@ body {
 #login-display-name {
   color: rgb(242, 248, 246);
   margin: 0px;
-  padding: 0px;
+  padding: 2px;
   float: right;
   font-size: 12px;
   background-color: gray;
-  border-radius: 5px
-
+  border-radius: 5px;
 }
 
-.banner img{
+.banner img {
   height: 75px;
   width: 75px;
-  
 }
 
 .banner {
@@ -59,29 +57,22 @@ body {
   padding-left: 30px;
   padding-right: 30px;
   padding-bottom: 100px;
-
-  
 }
 
 .logo {
   font-style: oblique;
   font-family: fantasy;
   font-size: 25px;
-  padding-top:25px;
+  padding-top: 25px;
   padding-left: 0px;
-  display: inline-block
+  display: inline-block;
 }
 
 .banner h5 {
   font-style: normal;
-  font-family: 'Courier New', Courier, monospace;
-
+  font-family: "Courier New", Courier, monospace;
 }
 
 .banner-second-line {
-  width: 200%
-
+  width: 200%;
 }
-
-
-
