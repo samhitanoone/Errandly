@@ -326,7 +326,7 @@ function updateSpecificRecord(documentID) {
     })
     .then(function() {
       console.log("Document successfully updated!");
-      location.reload((forceGet = true));
+      //location.reload((forceGet = true));
     })
     .then(function() {
       displayAllUnacceptedDBRecords();
@@ -350,7 +350,7 @@ function reopenTask(documentID) {
     })
     .then(function() {
       console.log("Document successfully updated!");
-      location.reload((forceGet = true));
+      //location.reload((forceGet = true));
     })
     .then(function() {
       displayFilteredAcceptedDBRecords();
@@ -424,6 +424,17 @@ window.addEventListener("DOMContentLoaded", event => {
   });
 
   displayAllUnacceptedDBRecords();
+
+  const db = firebase.firestore();
+  db.collection("DigitalCrafts").where("accepted","==", "true")
+    .onSnapshot( function(querySnapshot){
+      
+      console.log("Database sees that someone accepted a task!")
+
+
+    })
+
+
 });
 
 //UserName shows up on dashboard page when user is logged in.
